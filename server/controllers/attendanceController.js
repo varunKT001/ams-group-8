@@ -9,7 +9,7 @@ exports.markAttendance = catchAsyncError(async (req, res, next) => {
   const { userId } = req.params;
   const user = await User.findById(userId);
   if (!user) {
-    return next(new ErrorHandler('User not found!'), 400);
+    return next(new ErrorHandler('User not found!', 400));
   }
   const attendanceEntry = await Attendance.find({
     userId,
@@ -18,7 +18,7 @@ exports.markAttendance = catchAsyncError(async (req, res, next) => {
     },
   });
   if (attendanceEntry.length > 0) {
-    return next(new ErrorHandler('Attendance already marked!'), 400);
+    return next(new ErrorHandler('Attendance already marked!', 202));
   }
   const newAttendanceEntry = await Attendance.create({ userId });
   return res.status(200).json({

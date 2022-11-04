@@ -15,6 +15,8 @@ import EditUserProfile from './pages/Admin/Dashboard/EditUserProfile';
 import { useDispatch } from 'react-redux';
 import { auth, fetchAllUsers } from './api/user';
 import AdminProfile from './pages/Admin/Dashboard/Profile';
+import Scanner from './pages/Scanner';
+import UserDashboard from './pages/User/Dashboard';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +29,17 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<Scanner />} />
         <Route path='user' element={<UserSharedLayout />}>
           <Route path='login' element={<UserLogin />} />
+          <Route
+            path='dashboard'
+            element={
+              <UserPrivateRoute>
+                <UserDashboard />
+              </UserPrivateRoute>
+            }
+          />
         </Route>
         <Route path='admin' element={<AdminSharedLayout />}>
           <Route path='login' element={<AdminLogin />} />
