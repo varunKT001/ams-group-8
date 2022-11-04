@@ -7,6 +7,7 @@ const roles = require('../config/roles');
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
   const {
+    _id,
     name,
     email,
     role,
@@ -19,6 +20,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: {
+      _id,
       name,
       email,
       role,

@@ -4,14 +4,14 @@ POST http://localhost:5000/api/auth/register
 content-type: application/json
 
 {
-    "name":"Varun Tiwari",
+    "name":"Rajesh Tiwari",
     "dob": "12-12-2001",
     "department": "IMT-2020",
     "address": "Rajul Nagar",
     "phoneNumber": "1212121212",
     "rollNumber": "2020IMT-112",
-    "email":"varun@ams.com",
-    "role":"admin",
+    "email":"rajesh@ams.com",
+    "role":"user",
     "password":"varun1212"
 }
 
@@ -31,11 +31,11 @@ GET http://localhost:5000/api/auth/users
 
 ### GET SINGLE USER
 
-GET http://localhost:5000/api/auth/users/636e78ee53722de0c6a8594d  
+GET http://localhost:5000/api/auth/users/636ea492d70ea42449d50993  
 
-### UPDATE USER PRIVILEGE
+### UPDATE USER PROFILE
 
-PUT http://localhost:5000/api/auth/users/636e78ee53722de0c6a8594d  
+PUT http://localhost:5000/api/auth/users/636ea492d70ea42449d50993  
 Content-Type: application/json
 
 {
@@ -44,4 +44,4 @@ Content-Type: application/json
 
 ### DELETE USER
 
-DELETE  http://localhost:5000/api/auth/users/636e6006b115e8c20661e49b  
+DELETE  http://localhost:5000/api/auth/users/636ea492d70ea42449d50993  
