@@ -26,6 +26,26 @@ const userSchema = new mongoose.Schema({
     minLength: [8, 'Password must be atleast 8 characters long'],
     select: false,
   },
+  dob: {
+    type: Date,
+    required: [true, 'Please provide a date of birth'],
+  },
+  rollNumber: {
+    type: String,
+    required: [true, 'Please provide a roll number'],
+  },
+  department: {
+    type: String,
+    required: [true, 'Please provide a department'],
+  },
+  phoneNumber: {
+    type: String,
+    required: [true, 'Please provide a phone number'],
+  },
+  address: {
+    type: String,
+    require: [true, 'Please provide an address'],
+  },
 });
 
 // checking for changed password

@@ -6,23 +6,27 @@ const { sendToken } = require('../utils/jwt');
 const roles = require('../config/roles');
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
-  if (!name || !email || !password) {
-    return next(new ErrorHandler('Missing fields', 400));
-  }
-  const user = await User.create({
+  const {
     name,
     email,
     role,
-    password,
-  });
+    dob,
+    rollNumber,
+    department,
+    phoneNumber,
+    address,
+  } = await User.create(req.body);
   res.status(200).json({
     success: true,
     data: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      name,
+      email,
+      role,
+      dob,
+      rollNumber,
+      department,
+      phoneNumber,
+      address,
     },
   });
 });
@@ -59,11 +63,27 @@ exports.logoutUser = catchAsyncError(async (req, res, next) => {
 exports.getAllUserDetails = catchAsyncError(async (req, res, next) => {
   const user = await User.find();
   const userData = user.map((item) => {
+    const {
+      _id,
+      name,
+      email,
+      role,
+      dob,
+      rollNumber,
+      department,
+      phoneNumber,
+      address,
+    } = item;
     return {
-      id: item._id,
-      name: item.name,
-      email: item.email,
-      role: item.role,
+      _id,
+      name,
+      email,
+      role,
+      dob,
+      rollNumber,
+      department,
+      phoneNumber,
+      address,
     };
   });
   res.status(200).json({
@@ -80,14 +100,30 @@ exports.getSingleUserDetails = catchAsyncError(async (req, res, next) => {
   if (!user) {
     return next(new ErrorHandler('User not found', 200));
   }
-  const userData = {
-    id: user._id,
-    name: user.name,
-    email: user.email,
-  };
+  const {
+    _id,
+    name,
+    email,
+    role,
+    dob,
+    rollNumber,
+    department,
+    phoneNumber,
+    address,
+  } = user;
   res.status(200).json({
     success: true,
-    data: userData,
+    data: {
+      _id,
+      name,
+      email,
+      role,
+      dob,
+      rollNumber,
+      department,
+      phoneNumber,
+      address,
+    },
   });
 });
 
