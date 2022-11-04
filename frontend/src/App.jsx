@@ -13,13 +13,15 @@ import UnRegisterUser from './pages/Admin/Dashboard/UnRegisterUser';
 import RegisterNewUser from './pages/Admin/Dashboard/RegisterNewUser';
 import EditUserProfile from './pages/Admin/Dashboard/EditUserProfile';
 import { useDispatch } from 'react-redux';
-import { auth } from './api/user';
+import { auth, fetchAllUsers } from './api/user';
+import AdminProfile from './pages/Admin/Dashboard/Profile';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(auth());
+    dispatch(fetchAllUsers());
   }, []);
 
   return (
@@ -42,7 +44,9 @@ function App() {
             <Route path='attendance' element={<ViewAttendance />} />
             <Route path='register' element={<RegisterNewUser />} />
             <Route path='un-register' element={<UnRegisterUser />} />
+            <Route path='profile' element={<AdminProfile />} />
             <Route path='edit' element={<EditUserProfile />} />
+            <Route path='edit/:id' element={<RegisterNewUser />} />
           </Route>
         </Route>
       </Routes>

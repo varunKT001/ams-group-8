@@ -21,7 +21,7 @@ import { MiniDrawerList } from '../../data';
 import { MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../api/user';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -91,6 +91,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer({ children }) {
+  const navigate = useNavigate();
   const theme = useTheme();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -137,7 +138,9 @@ export default function MiniDrawer({ children }) {
               AMS
             </Typography>
             <SimpleMenu sx={{ color: 'white' }} label={user.data.name}>
-              <MenuItem>Profile</MenuItem>
+              <MenuItem onClick={() => navigate('/admin/dashboard/profile')}>
+                Profile
+              </MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </SimpleMenu>
           </Box>

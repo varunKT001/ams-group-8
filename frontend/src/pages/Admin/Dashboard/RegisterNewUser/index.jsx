@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Stack, Typography, TextField, Select, MenuItem } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { register } from '../../../../api/user';
+import { register, updateUser } from '../../../../api/user';
 import { generatePassword } from '../../../../utils';
-import { openNewUserModal } from '../../../../redux/slices/userSlice';
 import { NewUserCredentialModal } from '../../../../components/NewUserCredentialModal';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = () => {
   return {
@@ -23,7 +23,10 @@ const initialState = () => {
 
 export default function RegisterNewUser() {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((store) => store.user);
+  const navigate = useNavigate();
+  const { isLoading, editing, editingUser } = useSelector(
+    (store) => store.user
+  );
   const [user, setUser] = useState(initialState);
 
   function handleChange(e) {
@@ -35,19 +38,29 @@ export default function RegisterNewUser() {
   }
 
   function handleSubmit() {
-    dispatch(register(user));
+    if (!editing) dispatch(register(user));
+    else dispatch(updateUser(user));
+    navigate('/admin/dashboard');
   }
 
   useEffect(() => {
-    setUser((prev) => {
-      return { ...prev, password: generatePassword() };
-    });
+    if (editing) {
+      setUser((prev) => {
+        return { ...prev, password: generatePassword() };
+      });
+    }
   }, [isLoading]);
+
+  useEffect(() => {
+    setUser(editingUser);
+  }, [editing]);
 
   return (
     <Stack spacing={4} sx={{ minWidth: '35%', maxWidth: '50%' }}>
       <NewUserCredentialModal />
-      <Typography variant='h6'>Register New User</Typography>
+      <Typography variant='h6'>
+        {editing ? `Edit ${editingUser.name}'s Details` : 'Register New User'}
+      </Typography>
       {/* /////////////////// */}
       {/* //// USER NAME //// */}
       {/* /////////////////// */}
