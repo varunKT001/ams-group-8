@@ -40,13 +40,18 @@ app.use(
 app.use(express.json({ limit: '20mb' }));
 app.use(cookieParser());
 
-// basic api route
-app.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'API service running 🚀',
+// deployment setup
+if (process.env.NODE_ENV === 'production') {
+  const __directory = path.resolve();
+  app.use(express.static(path.join(__directory, '/client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__directory, 'client', 'build', 'index.html'));
   });
-});
+} else {
+  app.get('/', (req, res) => {
+    res.send('API service running 🚀');
+  });
+}
 
 // using routers
 app.use('/api/auth', userRouter);
