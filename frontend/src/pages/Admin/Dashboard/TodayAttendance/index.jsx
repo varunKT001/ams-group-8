@@ -36,10 +36,10 @@ export function TodayAttendance() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {todayAttendance.length > 0 ? (
+            {todayAttendance.length > 0 &&
               todayAttendance.map((row) => (
                 <TableRow
-                  key={row.name}
+                  key={row._id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component='th' scope='row'>
@@ -59,10 +59,7 @@ export function TodayAttendance() {
                     </Typography>
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <Typography>No data available!</Typography>
-            )}
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

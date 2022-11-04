@@ -4,12 +4,22 @@ import { toast } from 'react-toastify';
 
 const initialState = {
   data: null,
+  newUser: null,
+  isNewUserModalOpen: true,
   isLoading: false,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
+  reducers: {
+    closeNewUserModal: (state, action) => {
+      state.isNewUserModalOpen = false;
+    },
+    openNewUserModal: (state, action) => {
+      state.isNewUserModalOpen = true;
+    },
+  },
   extraReducers: {
     ///////////////
     //// Login ////
@@ -34,7 +44,8 @@ const userSlice = createSlice({
     },
     [register.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.data = action.payload.data;
+      state.newUser = action.payload.data;
+      state.isNewUserModalOpen = true;
       toast.success(`Registration successfull`);
     },
     [register.rejected]: (state, action) => {
@@ -72,4 +83,5 @@ const userSlice = createSlice({
   },
 });
 
+export const { openNewUserModal, closeNewUserModal } = userSlice.actions;
 export default userSlice.reducer;
