@@ -20,7 +20,7 @@ import SimpleMenu from '../SimpleMenu';
 import { MiniDrawerList } from '../../data';
 import { MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-// import { logout } from '../api/user';
+import { logout } from '../../api/user';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -92,8 +92,8 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MiniDrawer({ children }) {
   const theme = useTheme();
-  // const dispatch = useDispatch();
-  // const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -105,7 +105,7 @@ export default function MiniDrawer({ children }) {
   };
 
   const handleLogout = () => {
-    // dispatch(logout());
+    dispatch(logout());
   };
 
   return (
@@ -136,9 +136,9 @@ export default function MiniDrawer({ children }) {
             <Typography variant='h6' noWrap component='div'>
               AMS
             </Typography>
-            <SimpleMenu sx={{ color: 'white' }} /*label={user.data.name}*/>
+            <SimpleMenu sx={{ color: 'white' }} label={user.data.name}>
               <MenuItem>Profile</MenuItem>
-              <MenuItem /*onClick={handleLogout}*/>Logout</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </SimpleMenu>
           </Box>
         </Toolbar>

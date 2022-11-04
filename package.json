@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "dev:server": "nodemon server/server.js",
+    "dev:client": "npm run dev --prefix frontend",
     "dev": "npm-run-all -n -l -p dev:*",
     "start": "node server/server.js"
   },
