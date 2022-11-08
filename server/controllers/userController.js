@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const ErrorHandler = require('../utils/ErrorHandler');
 const catchAsyncError = require('../middleware/CatchAsyncErrors');
 const { sendToken } = require('../utils/jwt');
+const roles = require('../config/roles');
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
   const { name, email, password, role } = req.body;
@@ -111,7 +112,7 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
   if (!role) {
     return next(new ErrorHandler('Invalid: no data provided', 400));
   }
-  if (!['admin', 'user'].includes(role)) {
+  if (!roles.includes(role)) {
     return next(new ErrorHandler('Invalid: data invalid', 400));
   }
   const user = await User.findById(req.params.id);
