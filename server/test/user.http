@@ -34,9 +34,9 @@ PUT http://localhost:5000/api/auth/users/636a60aca3b745ce301f7a2f
 Content-Type: application/json
 
 {
-    "role":"user"
+    "role":"admin"
 }
 
 ### DELETE USER
 
-DELETE  http://localhost:5000/api/auth/users/636a5efe1903304e6747da72  
+DELETE  http://localhost:5000/api/auth/users/636a60aca3b745ce301f7a2f  
