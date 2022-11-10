@@ -38,21 +38,21 @@ export default function RegisterNewUser() {
   }
 
   function handleSubmit() {
-    if (!editing) dispatch(register(user));
-    else dispatch(updateUser(user));
-    navigate('/admin/dashboard');
+    if (!editing) {
+      dispatch(register(user));
+      setUser({ ...initialState(), password: generatePassword() });
+    } else {
+      dispatch(updateUser(user));
+      navigate('/admin/dashboard');
+    }
   }
 
   useEffect(() => {
-    if (editing) {
-      setUser((prev) => {
-        return { ...prev, password: generatePassword() };
-      });
-    }
+    if (!editing) setUser({ ...initialState(), password: generatePassword() });
   }, [isLoading]);
 
   useEffect(() => {
-    setUser(editingUser);
+    if (editing) setUser(editingUser);
   }, [editing]);
 
   return (
