@@ -11,7 +11,7 @@ export function NewUserCredentialModal() {
 
   useEffect(() => {
     setQRcode(
-      `https://api.qrserver.com/v1/create-qr-code/?data=${newUser?._id}!&size=128x128&bgcolor=ffffff`
+      `https://api.qrserver.com/v1/create-qr-code/?data=${newUser?._id}&size=128x128&bgcolor=ffffff`
     );
   }, [newUser]);
 
