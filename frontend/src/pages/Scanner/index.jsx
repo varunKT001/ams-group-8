@@ -15,7 +15,6 @@ export default function Scanner() {
   const [id, setId] = useState('');
 
   function handleScan(data) {
-    console.log(data);
     if (data) setId(data.text);
   }
 
