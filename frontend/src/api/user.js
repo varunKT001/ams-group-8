@@ -19,6 +19,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await Axios.post('/auth/register', credentials);
+      thunkAPI.dispatch(fetchAllUsers());
       return response.data;
     } catch (error) {
       const { message } = error.response.data;
@@ -92,6 +93,7 @@ export const updateUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const response = await Axios.put(`/auth/users/${user._id}`, user);
+      thunkAPI.dispatch(fetchAllUsers());
       return response.data;
     } catch (error) {
       const { message } = error.response.data;
