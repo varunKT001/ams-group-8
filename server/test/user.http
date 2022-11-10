@@ -30,11 +30,13 @@ GET http://localhost:5000/api/auth/users/636a5c4f003707ac95d37ff6
 
 ### UPDATE USER PRIVILEGE
 
-PUT http://localhost:5000/api/auth/users/636a6465a6ade85288b5cf2f  
+PUT http://localhost:5000/api/auth/users/636cd899fb45346c3b816905  
 Content-Type: application/json
 
 {
-    "role":"user"
+    "name": "Akshay",
+    "email": "akshay@ams.com",
+    "role":"admin"
 }
 
 ### DELETE USER

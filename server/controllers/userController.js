@@ -104,29 +104,28 @@ exports.sendCurrentUser = catchAsyncError(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-exports.updateUserRole = catchAsyncError(async (req, res, next) => {
+exports.updateUser = catchAsyncError(async (req, res, next) => {
   const { role } = req.body;
   if (!req.params.id) {
     return next(new ErrorHandler('User not found', 400));
   }
-  if (!role) {
-    return next(new ErrorHandler('Invalid: no data provided', 400));
-  }
-  if (!roles.includes(role)) {
+  if (role && !roles.includes(role)) {
     return next(new ErrorHandler('Invalid: data invalid', 400));
   }
-  const user = await User.findById(req.params.id);
+  let user = await User.findById(req.params.id);
   if (!user) {
     return next(new ErrorHandler('User not found', 200));
   }
-  if (user.email === req.user.email) {
+  if (role && user.email === req.user.email) {
     return next(new ErrorHandler('Cannot change role for self', 400));
   }
-  user.role = role;
-  await user.save();
+  const newUser = await User.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body
+  );
   res.status(200).json({
     success: true,
-    data: user,
+    data: newUser,
   });
 });
 

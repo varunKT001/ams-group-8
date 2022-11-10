@@ -41,7 +41,7 @@ router
   .put(
     auth.checkUserAuthentication,
     auth.checkUserPrivileges('admin'),
-    userController.updateUserRole
+    userController.updateUser
   )
   .delete(
     auth.checkUserAuthentication,
