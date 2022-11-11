@@ -11,6 +11,7 @@ const app = express();
 
 // requiring routers
 const userRouter = require('./routes/userRouter');
+const attendanceRouter = require('./routes/attendanceRouter');
 
 // requiring middlewares
 const errorMiddleware = require('./middleware/Error');
@@ -55,6 +56,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // using routers
 app.use('/api/auth', userRouter);
+app.use('/api/attendance', attendanceRouter);
 
 // using other middlewares
 app.use(errorMiddleware);
