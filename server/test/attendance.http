@@ -1,3 +1,15 @@
-# MARK ATTENDANCE
+### MARK ATTENDANCE
 
-POST http://localhost:5000/api/attendance/new/636cd899fb45346c3b816905
+POST http://localhost:5000/api/attendance/new/636e7ea5b2835c5590b31a40
+
+### TODAYS ATTENDANCE
+
+GET http://localhost:5000/api/attendance/today/
+
+### MONTHLY ATTENDANCE
+
+GET http://localhost:5000/api/attendance/monthly/10
+
+### SINGLE USER MONTHLY ATTENDANCE
+
+GET http://localhost:5000/api/attendance/user/636e7eafb2835c5590b31a43/10
