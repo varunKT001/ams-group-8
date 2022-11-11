@@ -13,16 +13,29 @@ exports.sendToken = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  res
-    .status(statusCode)
-    .cookie('token', token, options)
-    .json({
-      success: true,
-      data: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    });
+  const {
+    _id,
+    name,
+    email,
+    role,
+    dob,
+    rollNumber,
+    department,
+    phoneNumber,
+    address,
+  } = user;
+
+  res.status(statusCode).cookie('token', token, options).json({
+    success: true,
+    data: {
+      name,
+      email,
+      role,
+      dob,
+      rollNumber,
+      department,
+      phoneNumber,
+      address,
+    },
+  });
 };
