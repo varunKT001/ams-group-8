@@ -141,6 +141,7 @@ export default function MiniDrawer({ children }) {
               <MenuItem onClick={() => navigate('/admin/dashboard/profile')}>
                 Profile
               </MenuItem>
+              <MenuItem onClick={() => navigate('/')}>Open Scanner</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </SimpleMenu>
           </Box>

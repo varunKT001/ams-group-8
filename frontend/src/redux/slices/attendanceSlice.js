@@ -4,6 +4,7 @@ import {
   fetchMonthlyAttendance,
   fetchSingleUserMonthlyAttendance,
   fetchTodayAttendance,
+  markAttendance,
 } from '../../api/attendance';
 import { set } from '../../utils';
 
@@ -21,7 +22,7 @@ const attendanceSlice = createSlice({
   initialState,
   reducers: {
     change: (state, action) => {
-      set(state, payload.name.split('.'), payload.value);
+      set(state, payload.name.split('.'), action.payload.value);
     },
   },
   extraReducers: {
@@ -64,6 +65,20 @@ const attendanceSlice = createSlice({
       state.singleUserMonthlyAttendance = action.payload.data;
     },
     [fetchSingleUserMonthlyAttendance.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload);
+    },
+    //////////////
+    //// MARK ////
+    //////////////
+    [markAttendance.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [markAttendance.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      toast.success(action.payload.message);
+    },
+    [markAttendance.rejected]: (state, action) => {
       state.isLoading = false;
       toast.error(action.payload);
     },

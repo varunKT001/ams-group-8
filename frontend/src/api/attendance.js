@@ -41,3 +41,16 @@ export const fetchSingleUserMonthlyAttendance = createAsyncThunk(
     }
   }
 );
+
+export const markAttendance = createAsyncThunk(
+  'attendance/markAttendance',
+  async (userId, thunkAPI) => {
+    try {
+      const response = await Axios.post(`/attendance/new/${userId}`);
+      return response.data;
+    } catch (error) {
+      const { message } = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
