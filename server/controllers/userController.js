@@ -155,7 +155,7 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
   if (!user) {
     return next(new ErrorHandler('User not found', 200));
   }
-  if (role && user.email === req.user.email) {
+  if (role && role !== user.role && user.email === req.user.email) {
     return next(new ErrorHandler('Cannot change role for self', 400));
   }
   const newUser = await User.findByIdAndUpdate(

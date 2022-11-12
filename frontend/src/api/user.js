@@ -46,3 +46,56 @@ export const auth = createAsyncThunk('auth/auth', async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+export const fetchAllUsers = createAsyncThunk(
+  'auth/allUsers',
+  async (_, thunkAPI) => {
+    try {
+      const response = await Axios.get('/auth/users');
+      return response.data;
+    } catch (error) {
+      const { message } = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  'auth/deleteUser',
+  async (id, thunkAPI) => {
+    try {
+      const response = await Axios.delete(`/auth/users/${id}`);
+      thunkAPI.dispatch(fetchAllUsers());
+      return response.data;
+    } catch (error) {
+      const { message } = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const fetchSingleUser = createAsyncThunk(
+  'auth/fetchSingleUser',
+  async (id, thunkAPI) => {
+    try {
+      const response = await Axios.get(`/auth/users/${id}`);
+      return response.data;
+    } catch (error) {
+      const { message } = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async (user, thunkAPI) => {
+    try {
+      const response = await Axios.put(`/auth/users/${user._id}`, user);
+      return response.data;
+    } catch (error) {
+      const { message } = error.response.data;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);

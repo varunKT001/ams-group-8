@@ -1,11 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, logout, register, auth } from '../../api/user';
+import {
+  login,
+  logout,
+  register,
+  auth,
+  fetchAllUsers,
+  deleteUser,
+  fetchSingleUser,
+  updateUser,
+} from '../../api/user';
 import { toast } from 'react-toastify';
 
 const initialState = {
   data: null,
   newUser: null,
-  isNewUserModalOpen: true,
+  allUsers: [],
+  editing: false,
+  editingUser: {},
+  isNewUserModalOpen: false,
   isLoading: false,
 };
 
@@ -79,6 +91,65 @@ const userSlice = createSlice({
     },
     [auth.rejected]: (state, action) => {
       state.isLoading = false;
+    },
+    ///////////////////
+    //// All Users ////
+    ///////////////////
+    [fetchAllUsers.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchAllUsers.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.allUsers = action.payload.data;
+    },
+    [fetchAllUsers.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload);
+    },
+    /////////////////////
+    //// Delete User ////
+    /////////////////////
+    [deleteUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      toast.success(action.payload.message);
+    },
+    [deleteUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload);
+    },
+    ///////////////////
+    //// Edit User ////
+    ///////////////////
+    [fetchSingleUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchSingleUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.editing = true;
+      state.editingUser = action.payload.data;
+    },
+    [fetchSingleUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload);
+    },
+    /////////////////////
+    //// Update User ////
+    /////////////////////
+    [updateUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.editing = false;
+      state.editingUser = {};
+      toast.success('Profile updated successfully');
+    },
+    [updateUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload);
     },
   },
 });
