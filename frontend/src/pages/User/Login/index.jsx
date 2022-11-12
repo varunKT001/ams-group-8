@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
-// import { login } from '../api/user';
+import { login } from '../../../api/user';
 import { Navigate } from 'react-router-dom';
 
 function Copyright(props) {
@@ -40,8 +40,8 @@ const initialCredentials = {
 };
 
 export function UserLogin() {
-  // const dispatch = useDispatch();
-  // const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
   const [credentials, setCredentials] = React.useState(initialCredentials);
 
   const handleCredentials = (e) => {
@@ -53,12 +53,12 @@ export function UserLogin() {
   };
 
   const handleSubmit = () => {
-    // dispatch(login(credentials));
+    dispatch(login(credentials));
   };
 
-  // if (user.data) {
-  //   return <Navigate to='/' />;
-  // }
+  if (user.data) {
+    return <Navigate to='/user/dashboard' />;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -88,10 +88,10 @@ export function UserLogin() {
               margin='normal'
               required
               fullWidth
-              id='phoneNumber'
-              label='Phone Number'
-              name='phoneNumber'
-              autoComplete='phoneNumber'
+              id='email'
+              label='Email'
+              name='email'
+              autoComplete='email'
               autoFocus
               onChange={handleCredentials}
             />

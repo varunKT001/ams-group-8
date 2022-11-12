@@ -159,7 +159,8 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
   }
   const newUser = await User.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
   res.status(200).json({
     success: true,

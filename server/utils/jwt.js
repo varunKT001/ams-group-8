@@ -7,12 +7,10 @@ exports.sendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
   };
-
   if (process.env.NODE_ENV === 'production') {
     options.sameSite = 'none';
     options.secure = true;
   }
-
   const {
     _id,
     name,
@@ -24,7 +22,6 @@ exports.sendToken = (user, statusCode, res) => {
     phoneNumber,
     address,
   } = user;
-
   res.status(statusCode).cookie('token', token, options).json({
     success: true,
     data: {

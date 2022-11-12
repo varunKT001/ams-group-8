@@ -35,11 +35,11 @@ GET http://localhost:5000/api/auth/users/636ea492d70ea42449d50993
 
 ### UPDATE USER PROFILE
 
-PUT http://localhost:5000/api/auth/users/636ea492d70ea42449d50993  
+PUT http://localhost:5000/api/auth/users/636e7eb7b2835c5590b31a46  
 Content-Type: application/json
 
 {
-    "dob": "11/09/2001"
+    "role": "user"
 }
 
 ### DELETE USER
