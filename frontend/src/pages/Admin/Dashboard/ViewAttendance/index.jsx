@@ -36,10 +36,10 @@ export function ViewAttendance() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {monthlyAttendance.length > 0 ? (
+            {monthlyAttendance.length > 0 &&
               monthlyAttendance.map((row) => (
                 <TableRow
-                  key={row.user.name}
+                  key={row._id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component='th' scope='row'>
@@ -59,10 +59,7 @@ export function ViewAttendance() {
                     </Typography>
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <Typography>No data available!</Typography>
-            )}
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

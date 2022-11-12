@@ -29,6 +29,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
       department,
       phoneNumber,
       address,
+      password: req.body.password,
     },
   });
 });
