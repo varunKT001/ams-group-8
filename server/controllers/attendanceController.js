@@ -36,11 +36,30 @@ exports.todaysAttendance = catchAsyncError(async (req, res, next) => {
   });
   const users = await User.find();
   const data = users.map((user) => {
+    const {
+      _id,
+      name,
+      email,
+      role,
+      dob,
+      rollNumber,
+      department,
+      phoneNumber,
+      address,
+    } = user;
     const isPresent = attendanceEntries.some((entry) =>
-      entry.userId.equals(user._id)
+      entry.userId.equals(_id)
     );
     return {
-      name: user.name,
+      _id,
+      name,
+      email,
+      role,
+      dob,
+      rollNumber,
+      department,
+      phoneNumber,
+      address,
       present: isPresent,
     };
   });
